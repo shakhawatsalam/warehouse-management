@@ -14,7 +14,7 @@ app.use(express.json());
 
 
 
-const uri = `mongodb+srv://${process.env.DB_INVENTORY}:${process.env.DB_PASS}@cluster0.rd1bs.mongodb.net/myFirstDatabase?retryWrites=true&w=majority+`;
+const uri = `mongodb+srv://${process.env.DB_INVENTORY}:${process.env.DB_PASS}@cluster0.rd1bs.mongodb.net/myFirstDatabase?retryWrites=true&`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 
@@ -35,12 +35,30 @@ async function run() {
             const query = { _id: ObjectId(id) };
             const item = await itemsColletion.findOne(query);
             res.send(item);
-        })
+        });
 
-    }
+        //update user
+        app.put('/items/:id', async (req, res) => {
+            const id = req.params.id;
+            const quantity = req.body;
+            const filter = { _id: ObjectId(id) };
+            const options = { upsert: true };
+            const updatedData = {
+                $set: {
+                    quantity: quantity.quantity
+                },
+            };
+            const result = await itemsColletion.updateOne(filter, updatedData, options);
+            res.send(result);
+
+            
+        console.log(quantity);
+    });
+
+}
     finally {
 
-    }
+}
 }
 run().catch(console.dir);
 
