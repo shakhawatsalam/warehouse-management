@@ -51,14 +51,14 @@ async function run() {
             const result = await itemsColletion.updateOne(filter, updatedData, options);
             res.send(result);
 
-            
-        console.log(quantity);
-    });
 
-}
+            console.log(quantity);
+        });
+
+    }
     finally {
 
-}
+    }
 }
 run().catch(console.dir);
 
