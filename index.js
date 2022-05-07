@@ -50,9 +50,29 @@ async function run() {
             };
             const result = await itemsColletion.updateOne(filter, updatedData, options);
             res.send(result);
+        });
 
+        //POST
+        app.post('/items', async (req, res) => {
+            const newService = req.body;
+            const result = await itemsColletion.insertOne(newService);
+            res.send(result)
+        });
 
-            console.log(quantity);
+        //My Items Api 
+        app.get('/myItems', async (req, res) => {
+            const email = req.query.email;
+            const query = { email: email };
+            const cursor = itemsColletion.find(query);
+            const items = await cursor.toArray();
+            res.send(items);
+        });
+        //DELETE API
+        app.delete('/items/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await itemsColletion.deleteOne(query);
+            res.send(result);
         });
 
     }
