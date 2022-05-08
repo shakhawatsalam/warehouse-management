@@ -26,7 +26,6 @@ function verifyJWT(req, res, next) {
             console.log(err)
             return res.status(403).send({ massage: 'Forbidden access!!!', error : true });
         }
-        console.log('decoded', decoded);
         req.decoded = decoded;
         next();
     })
@@ -123,7 +122,7 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) => {
-    res.send('Running Genius Server');
+    res.send('Running inventory Server');
 });
 
 app.listen(port, () => {
