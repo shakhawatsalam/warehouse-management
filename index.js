@@ -122,7 +122,7 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) => {
-    res.send('Running inventory Server');
+    res.send('Running WareHouse Server');
 });
 
 app.listen(port, () => {
